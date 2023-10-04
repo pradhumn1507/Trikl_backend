@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
 const app = express();
+const fs = require('fs'); 
 require('dotenv').config();
 
 // Configure CORS to allow cross-origin requests
@@ -29,6 +30,13 @@ const imageSchema = new mongoose.Schema({
 });
 
 const Image = mongoose.model('Image', imageSchema);
+
+
+const uploadsDir = path.join("/", 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
+
 
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
